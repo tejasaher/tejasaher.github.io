@@ -21,7 +21,7 @@
             background-color: #3a5a40;
             color: #f1f5f1;
             padding: 15px;
-            text-align: center;
+            margin-bottom: 20px;
         }
         .divider {
             width: 100%;
@@ -34,6 +34,9 @@
             font-size: 1.5em;
             margin: 0; /* Remove any default margin */
             padding: 30px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         .navbar a {
             color: #f1f5f1;
@@ -78,11 +81,6 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        .navbar{
-            display: flex;
-            align-items: center; /* Aligns items vertically */
-            margin-bottom: 20px;
-        }
         .book-appointment-link:hover .calendar-popup {
             display: block;
         }
@@ -93,11 +91,8 @@
         }
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-        }
-        .photo-grid.four-columns {
-            grid-template-columns: repeat(4, 1fr);
         }
         .photo-item {
             background-color: #fff;
@@ -391,12 +386,10 @@
                 inevitableclicks
                 </a>
                 </p>
+
             <p>My Gears - Oneplus 11, Nikon D5600</p>
         </div>
-        <div class="grid-buttons">
-            <button id="two-columns-btn">2 Columns</button>
-            <button id="four-columns-btn">4 Columns</button>
-        </div>
+        
         <div class="photo-grid">
             <div class="photo-item">
                 <img src="img/IMG_20191017_174020_815.jpg" alt="Photo 1" class="photo" onclick="openModal(this)">
