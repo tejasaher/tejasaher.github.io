@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tejas Aher Photography</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;*/
+            margin: 0;
+            padding: 0;
+            background: #e6f0e6; /* light green */
+            color: #2f3e2f;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3a5a40;
+            color: #f1f5f1;
+            padding: 15px;
+            text-align: center;
+        }
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: #a3b18a;
+            margin: 20px 0;
+        }
+        .navbar .title {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin: 0; /* Remove any default margin */
+            padding: 30px;
+        }
+        .navbar a {
+            color: #f1f5f1;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            position: relative;
+        }
+        .navbar a:hover {
+            background: #588157;
+            color: #ffffff;
+        }
+        .links {
+            margin-left: auto; /* Pushes the links to the right */
+        }
+        .navbar-photo {
+            width: 70px; /* Adjust size as needed */
+            height: 70px; /* Adjust size as needed */
+            border-radius: 50%; /* Makes the photo circular */
+            background-image: url('img/IMG_TEJAS_2.jpg'); /* Replace with your photo path */
+            background-size: cover;
+            background-position: center;
+            margin-right: 2px; /* Space between photo and title */
+            border: 4px solid white;
+        }
+        
+        .calendar-popup {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 10px;
+            z-index: 10;
+        }
+        .calendar-popup input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .navbar{
+            display: flex;
+            align-items: center; /* Aligns items vertically */
+            margin-bottom: 20px;
+        }
+        .book-appointment-link:hover .calendar-popup {
+            display: block;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px 0;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .photo-grid.four-columns {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .photo-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .photo-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 4 / 3; /* Ensure a 4:3 aspect ratio */
+            object-fit: cover;
+        }
+        .description {
+            padding: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+        }
+        .article, .hobbies-container {
+            display: none;
+        }
+        .article.show{
+            display: block;
+            background: #588157; /* soft mehendi */
+            color: #f1f5f1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fafafa;
+        }
+        h3 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        em {
+            font-style: italic;
+            display: block;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .hobbies-container.show {
+            display: block;
+            background: #588157;
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        /* WORK DETAILS TEXT */
+        .work-details {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .work-details h2 {
+            color: #fafaf7;
+            margin-bottom: 10px;
+        }
+
+        .work-details p {
+            color: #fafaf7;
+            line-height: 1.6;
+        }
+
+        /* INSTAGRAM LINK */
+        .work-details a {
+            color: #fafaf7;
+            text-decoration: none;
+        }
+
+        .work-details a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-text {
+            font-family: 'Playfair Display', serif;  /* stylish font */
+            font-size: 18px;
+            line-height: 1.8;
+            color: #dad7cd;
+            letter-spacing: 0.3px;
+        }
+        .resume-link a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #a3b18a;   /* soft green */
+            color: #2f3e2f;        /* dark text */
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .resume-link a:hover {
+            background: #dad7cd;   /* lighter cream */
+            color: #344e41;
+        }
+        .grid-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .grid-buttons button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            background: #344e41;
+            color: #f1f5f1;
+            cursor: pointer;
+        }
+        .grid-buttons button:hover {
+            background-color: #555;
+            background: #a3b18a;
+            color: #2f3e2f;
+        }
+
+        /* Modal styles */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .image-modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #f1f1f1;
+            font-size: 35px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .insta-text {
+            text-decoration: underline !important;
+            text-underline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-photo"></div> 
+        <div id="navbar-title" class="title">The Balanced Life Of Tejas</div>
+        <div class="links">
+            <a href="#" id="home-link">Home</a>
+            <a href="#book" id="book-appointment-link" class="book-appointment-link">Book Appointment
+                <div class="calendar-popup">
+                    <input type="date" id="appointment-date" name="appointment-date">
+                </div>
+            </a>
+            <a href="#" id="hobbies-link">Interests</a>
+            <a href="#login">Login</a>
+            <a href="#about">About</a>
+        </div>
+    </div>
+
+    <div id="article" class="container article show">
+        <h1>Building Scalable Data Platforms & Intelligent Workflows</h1>
+        <p>As a Lead Data Engineer, I have a good expertise in building and optimizing data workflows that power critical business decisions.</p>
+        <h2 style="text-align: left;">💡 What I Do</h2>
+        <ul>
+            <li>Design and build scalable data platforms using cloud data warehouses like Snowflake and Amazon Redshift, enabling efficient data storage, processing, and analytics.</li>
+            
+            <li>Architect and deploy data solutions on AWS using services such as S3, Lambda, and EKS, supporting robust and scalable microservice-based data workflows.</li>
+            
+            <li>Develop and orchestrate end-to-end ELT pipelines using modern tools including DBT, Apache Airflow, Dagster, and Meltano.</li>
+            
+            <li>Bring 9+ years of experience delivering data solutions across domains such as Healthcare, Travel & Hospitality, and Telecom.</li>
+            
+            <li>Specialize in data modeling (Kimball methodology), building star schemas, and implementing layered architectures (raw → cleaned → curated) for analytics-ready data.</li>
+            
+            <li>Leverage Docker and Kubernetes to build scalable, containerized data workloads and streamline deployment processes.</li>
+            
+            <li>Continuously explore modern technologies including AI-driven data applications and cloud-native tools to enhance data platform capabilities.</li>
+            
+            <li>Focused on delivering high-quality, reliable data solutions that enable data-driven decision-making and business impact.</li>
+        </ul>
+        <div class="divider"></div>
+        <p><em>
+            <h2 style="text-align: left;">🛠️ Core Skills</h2>
+            <h4>Data Engineering • Data Modeling • Snowflake • DBT • Airflow • Dagster • Python • AWS • Docker • Kubernetes • CI/CD • Data Governance </em> </h4></p>
+        <div class="divider"></div>
+        <div class="resume-link">
+            <h2 style="text-align: left;">📄 Resume</h2>
+            <p>
+                <li><a href="img/Tejas_Aher_Resume.pdf" target="_blank">Download my Resume (PDF)</a></li>
+            </p>
+        </div>
+        <div class="divider"></div>
+        <h2 style="text-align: left;">🌱 Beyond Work</h2>
+        <p><em>Inspired by the words of Samarth Ramdas — </em> </p>
+        <p><em>"केल्याने होत आहे रे। आधी केलेची पाहिजे ।।" - समर्थ रामदास.</em>
+        <p><em> I believe in continuous learning and practical execution. I actively explore new technologies, contribute to open-source projects, and stay updated with evolving trends in data engineering and AI. </em></p>
+        <div class="divider"></div>
+        <p>Alongside technology, photography is a passion that helps me observe patterns, details, and perspectives beyond data.</p>
+        <div class="divider"></div>
+        <p><h2 style="text-align: left;">🎯 Current Focus</h4></p>
+        <ul>
+            <li>Advancing cloud-native data architectures(AWS, GCP)</li>
+            <li>Strengthening Infrastructure as Code (Terraform)</li>
+            <li>Contributing to open-source data engineering projects</li>
+            <li>Promoting best practices in coding, documentation, and system design</li>
+            <li>Mentoring engineers and sharing knowledge across teams</li>
+        </ul>
+        <p><h2 style="text-align: left;">🧠 Philosophy</h4></p>
+        <p>I believe in building solutions that are not just functional, but scalable, maintainable, and impactful.
+            This is just the beginning — continuously learning, building, and evolving.</p>
+        
+
+    </div>
+
+    <div id="hobbies-container" class="container hobbies-container">
+        <div class="work-details highlight-text">
+            <h2>Photography & Creative Work</h2>
+            <p> Photography is more than a hobby for me — it’s a way to observe details, patterns, and stories beyond data.
+                From landscapes to wildlife, each frame reflects my perspective on simplicity, nature, and moments in time.</p>
+            <p>Feel free to browse through the grid below to see more of my work!</p>
+            <p>Please visit my instagram page, Do like, follow and stay tuned for the further updates.</p>
+            <p>
+                Instagram Link 📸 - 
+                <a href="https://www.instagram.com/inevitableclicks/" target="_blank" class="insta-text">
+                inevitableclicks
+                </a>
+                </p>
+            <p> ------------------------------------------------------------------------------------------------- </p>
+            <p>(Note - Book appointment option is not live on this page you can directly connect with me over instagram for any queries.) </p>
+            <p> -------------------------------------------------------------------------------------------------</p>
+            <p>My Gears - Oneplus 6, Oneplus 11, Nikon D5600</p>
+        </div>
+        <div class="grid-buttons">
+            <button id="two-columns-btn">2 Columns</button>
+            <button id="four-columns-btn">4 Columns</button>
+        </div>
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="img/IMG_20191017_174020_815.jpg" alt="Photo 1" class="photo" onclick="openModal(this)">
+                <div class="description"> Rubic cube - Randomly clicked at Vetal Hills Pune.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_CAT.jpeg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Innocent cat's picture. She is adorable.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_20210513_193751_086.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Nature's Painting - Nashik</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_20210518_235355_178.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">The Moon - देखो चांद तोड के लाया हू !!</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_BUTTERFLY.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">One of the ealierst click on my DSLR</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_KINGFISHER.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Kingfisher from the jungles of Sahyadri. Clicked during winter.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_LEAF.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Sun is shining and we can look at the beatiful structure of the old leaf.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_20201228_200232_421.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Amazing Sunset - Nashik</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_PERSONAL.jpeg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Self captured.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_PIGEON.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Though they are troublesome now a days but this shot looks beatiful isn't it?</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_SPARROW.jpeg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Cute little Sparrow!</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_SUN.jpeg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Sunrise view from the form.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_TREE.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Moss grows where nothing else can grow.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/IMG_DOG.jpg" alt="Photo 2" class="photo" onclick="openModal(this)">
+                <div class="description">Life is better with black pug! </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for enlarged images -->
+    <div id="image-modal" class="image-modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="image-modal-content" id="modal-image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeLink = document.getElementById('home-link');
+            const hobbiesLink = document.getElementById('hobbies-link');
+            const article = document.getElementById('article');
+            const hobbiesContainer = document.getElementById('hobbies-container');
+            const navbarTitle = document.getElementById('navbar-title');
+            const photoGrid = document.getElementById('photo-grid');
+            const twoColumnsBtn = document.getElementById('two-columns-btn');
+            const fourColumnsBtn = document.getElementById('four-columns-btn');
+            const bookAppointmentLink = document.getElementById('book-appointment-link');
+
+            // Show article by default
+            article.classList.add('show');
+            hobbiesContainer.classList.remove('show');
+            bookAppointmentLink.style.display = 'none'; // Hide by default
+
+            homeLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                article.classList.add('show');
+                hobbiesContainer.classList.remove('show');
+                navbarTitle.textContent = "The Balanced Life Of Tejas"; // Reset title
+                bookAppointmentLink.style.display = 'none'; // Hide Book Appointment
+            });
+
+            hobbiesLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                article.classList.remove('show');
+                hobbiesContainer.classList.add('show');
+                navbarTitle.textContent = 'Photography | Tejas Aher'; // Update title
+                bookAppointmentLink.style.display = 'inline-block'; // Show Book Appointment
+            });
+
+            document.getElementById('two-columns-btn').addEventListener('click', function() {
+                document.querySelector('.photo-grid').classList.remove('four-columns');
+            });
+            document.getElementById('four-columns-btn').addEventListener('click', function() {
+                document.querySelector('.photo-grid').classList.add('four-columns');
+            });
+        });
+        function openModal(img) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
